@@ -20,7 +20,7 @@ public class Solution {
             return;
         }
 
-        while (cap >= 0 && m >= 0)
+        while (cap >= 0)
         {
             if (nums1[m] > nums2[n])
             {
