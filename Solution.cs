@@ -1,50 +1,45 @@
 public class Solution {
     public void Merge(int[] nums1, int m, int[] nums2, int n) {
-        int num1Index = 0;
-        int num2Index = 0;
-        int outputIndex = 0;
-        int[] output = new int[m + n];
+        // it should merge nums2 into nums1 in non-decreasing order
+        // m + n is the final size of the array of elements
+        // nums2 can be changed freely
+        // do not return anything!
+        int cap = m + n - 1;
 
-        while (outputIndex < m + n)
+        // exceptions
+        if (m > 0)
         {
-            if(num1Index >= m && num2Index < n)
-            {
-                output[outputIndex] = nums2[num2Index];
-                outputIndex++;
-                num2Index++;
-                continue;
-            }
-            if(num1Index < m && num2Index >= n)
-            {
-                output[outputIndex] = nums1[num1Index];
-                outputIndex++;
-                num1Index++;
-                continue;
-            }
-
-            if (nums1[num1Index] == nums2[num2Index])
-            {
-                output[outputIndex] = nums1[num1Index];
-                outputIndex++;
-                output[outputIndex] = nums2[num2Index];
-                outputIndex++;
-                num1Index++;
-                num2Index++;
-            }
-            else if(nums1[num1Index] < nums2[num2Index] && num1Index < m)
-            {
-                output[outputIndex] = nums1[num1Index];
-                outputIndex++;
-                num1Index++;
-            }
-            else if(nums1[num1Index] > nums2[num2Index] && num2Index < n)
-            {
-                output[outputIndex] = nums2[num2Index];
-                outputIndex++;
-                num2Index++;
-            }
+            m--;
+        }
+        if (n > 0)
+        {
+            n--;
+        }
+        else 
+        {
+            return;
         }
 
-        Console.WriteLine("[{0}]", string.Join(", ", output));
+        while (cap >= 0 && m >= 0)
+        {
+            if (nums1[m] > nums2[n])
+            {
+                nums1[cap] = nums1[m--];
+            }
+            else if (nums1[m] < nums2[n])
+            {
+
+                nums1[cap] = nums2[n--];
+            }
+            else
+            {
+                nums1[cap--] = nums2[n--];
+                nums1[cap--] = nums1[m--];
+            }
+
+            cap--;
+        }
+
+        Console.WriteLine("[{0}]", string.Join(", ", nums1));
     }
 }
